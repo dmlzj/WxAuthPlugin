@@ -56,8 +56,8 @@
 {
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (self.WXAuthCallBack) {
-            NSDictionary *resultData = [NSDictionary configCallbackDataWithResCode:resp.errCode msg:resp.errStr data:nil];
-            self.WXAuthCallBack(resultData);
+            SendAuthResp *req = (SendAuthResp *)resp;
+            self.WXAuthCallBack(req.code);
             self.WXAuthCallBack = nil;
         }
     }
