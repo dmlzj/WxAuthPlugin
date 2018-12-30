@@ -62,12 +62,12 @@
         }
     }
 }
-//  处理支付结果
+//  处理回调结果
 //
 - (BOOL)applicationOpenURL:(NSURL *)url
 {
-    // 微信支付结果
-    if ([url.host isEqualToString:@"pay"]) {
+    // 微信回调结果
+    if ([url.host isEqualToString:@"oauth"]) {
         return [WXApi handleOpenURL:url delegate:self];
     }
     return YES;
