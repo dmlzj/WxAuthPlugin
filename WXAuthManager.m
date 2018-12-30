@@ -62,7 +62,16 @@
         }
     }
 }
-
+//  处理支付结果
+//
+- (BOOL)applicationOpenURL:(NSURL *)url
+{
+    // 微信支付结果
+    if ([url.host isEqualToString:@"pay"]) {
+        return [WXApi handleOpenURL:url delegate:self];
+    }
+    return YES;
+}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -90,3 +99,4 @@
     [self WXAuthWithInfo:info];
 }
 @end
+
