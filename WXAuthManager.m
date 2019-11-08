@@ -51,6 +51,22 @@
     [WXApi sendReq:req];
 }
 
+#pragma mark - 微信小程序唤起
+- (void)LaunchMiniProgramReqWithId:(NSString *)programId programPath:(NSString *)path{
+    // 第三方应用不需要判断微信版本具体支持哪些功能，由微信侧判断并作出相应的提示
+    //if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        WXLaunchMiniProgramReq *launchMiniProgram = [WXLaunchMiniProgramReq object];
+        launchMiniProgram.userName = programId ;//@"gh_735baf534a96";
+        launchMiniProgram.path = path;   //小程序指定页面( 默认为nil, 默认首页)
+        launchMiniProgram.miniProgramType = WXMiniProgramTypeRelease;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [WXApi sendReq:launchMiniProgram];
+        });
+    //}else{
+        //提示
+    //}
+    
+}
 //微信授权登录回调
 -(void)onResp:(BaseResp *)resp
 {

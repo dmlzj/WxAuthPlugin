@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WXAuthPlugin"
-  s.version      = "1.0.6"
+  s.version      = "1.0.7"
   s.summary      = "eros 微信登录模块 WXAuthPlugin."
 
   # This description is used to generate tags and improve search results.

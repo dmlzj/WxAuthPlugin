@@ -22,6 +22,7 @@ WX_PlUGIN_EXPORT_MODULE(WXAuth, WXAuthModule)
 WX_EXPORT_METHOD_SYNC(@selector(isInstallWXApp))
 WX_EXPORT_METHOD_SYNC(@selector(initWX:))
 WX_EXPORT_METHOD(@selector(WXAuth:callback:))
+WX_EXPORT_METHOD_SYNC(@selector(openMini:))
 
 /** 判断是否安装了微信 */
 -(BOOL)isInstallWXApp
@@ -41,4 +42,10 @@ WX_EXPORT_METHOD(@selector(WXAuth:callback:))
 {
     [[WXAuthManager shareInstance] WXAuth:info callback:callback];
 }
+
+- (void)openMini:(NSDictionary *)info
+{
+    [[WXAuthManager shareInstance] LaunchMiniProgramReqWithId:info[@"id"] programPath:info[@"path"]];
+}
+
 @end
