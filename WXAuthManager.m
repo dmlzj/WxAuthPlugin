@@ -48,7 +48,8 @@
     req.scope = info.scope;
     req.state = info.state;
     //第三方向微信终端发送一个SendAuthReq消息结构
-    [WXApi sendReq:req];
+    [WXApi sendReq:req completion:^(BOOL success) {
+    }];
 }
 
 #pragma mark - 微信小程序唤起
@@ -60,7 +61,8 @@
         launchMiniProgram.path = path;   //小程序指定页面( 默认为nil, 默认首页)
         launchMiniProgram.miniProgramType = WXMiniProgramTypeRelease;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [WXApi sendReq:launchMiniProgram];
+            [WXApi sendReq:launchMiniProgram completion:^(BOOL success) {
+            }];
         });
     //}else{
         //提示
