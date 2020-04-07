@@ -20,7 +20,7 @@ WX_PlUGIN_EXPORT_MODULE(WXAuth, WXAuthModule)
 @implementation WXAuthModule
 @synthesize weexInstance;
 WX_EXPORT_METHOD_SYNC(@selector(isInstallWXApp))
-WX_EXPORT_METHOD_SYNC(@selector(initWX:))
+WX_EXPORT_METHOD_SYNC(@selector(initWX:universalLink:))
 WX_EXPORT_METHOD(@selector(WXAuth:callback:))
 WX_EXPORT_METHOD_SYNC(@selector(openMini:))
 
@@ -33,9 +33,18 @@ WX_EXPORT_METHOD_SYNC(@selector(openMini:))
     return self.WXAppIsInstall;
 }
 
-- (void)initWX:(NSString *)appkey
+- (void)initWX:(NSString *)appkey universalLink:(NSString *)universalLink
 {
-    [WXApi registerApp:appkey];
+    [WXApi startLogByLevel:WXLogLevelDetail logBlock:^(NSString *log) {
+      NSLog(@"WeChatSDK: %@", log);
+    }];
+
+  [WXApi registerApp:appkey universalLink:universalLink];
+
+  //调用自检函数
+  [WXApi checkUniversalLinkReady:^(WXULCheckStep step, WXCheckULStepResult* result) {
+      NSLog(@"%@, %u, %@, %@", @(step), result.success, result.errorInfo, result.suggestion);
+    }];
 }
 
 - (void)WXAuth:(NSDictionary *)info callback:(WXModuleCallback)callback
