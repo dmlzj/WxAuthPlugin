@@ -75,8 +75,11 @@
     if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (self.WXAuthCallBack) {
             SendAuthResp *req = (SendAuthResp *)resp;
-            self.WXAuthCallBack(req.code);
-            self.WXAuthCallBack = nil;
+            dispatch_time_t timer = dispatch_time(DISPATCH_TIME_NOW, 1*NSEC_PER_SEC);
+            dispatch_after(timer, dispatch_get_main_queue(), ^{
+                self.WXAuthCallBack(req.code);
+                self.WXAuthCallBack = nil;
+            });
         }
     }
 }
